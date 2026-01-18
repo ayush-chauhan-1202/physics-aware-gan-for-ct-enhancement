@@ -4,3 +4,6 @@ pyyaml
 numpy
 pillow
 scikit-image
+lpips
+scipy
+tqdm
