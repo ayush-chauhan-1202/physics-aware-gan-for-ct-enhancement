@@ -42,7 +42,13 @@ def train(cfg_path="configs/baseline.yaml"):
             # ---- G ----
             with torch.cuda.amp.autocast(enabled=use_amp):
                 fake = G(degraded)
-                loss_g = generator_loss(D(degraded,fake), fake, img, cfg["loss_weights"])
+                loss_g = generator_loss(
+                                        D(degraded, fake),
+                                        fake,
+                                        img,
+                                        cfg["loss_weights"],
+                                        device
+                                    )
 
             optG.zero_grad()
             scaler.scale(loss_g).backward()
