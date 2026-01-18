@@ -1,0 +1,21 @@
+device: auto
+
+training:
+  epochs: 50
+  batch_size: 8
+  lr: 0.0002
+  num_workers: 2
+
+loss_weights:
+  gan: 1.0
+  l1: 10.0
+  ssim: 2.0
+  freq: 1.0
+
+paths:
+  train_input: data/train/input
+  train_target: data/train/target
+  val_input: data/val/input
+  val_target: data/val/target
+  checkpoints: outputs/checkpoints
+  samples: outputs/samples
