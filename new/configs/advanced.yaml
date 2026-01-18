@@ -1,0 +1,10 @@
+epochs: 100
+batch: 4
+lr: 0.0001
+data: data/train/good
+
+loss_weights:
+  gan: 1.0
+  l1: 15.0
+  ssim: 3.0
+  freq: 2.0
