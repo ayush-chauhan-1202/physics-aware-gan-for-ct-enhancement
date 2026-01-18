@@ -44,3 +44,104 @@ Rather than using purely synthetic noise, this project incorporates a **physics-
 ## Architecture Overview
 
 **Pipeline:**
+```
+Clean image → Physics degradation → Generator → Restored image
+↓
+Discriminator (PatchGAN)
+```
+
+The discriminator operates on local patches, forcing the generator to learn high-frequency texture fidelity — critical for industrial defect morphology.
+
+
+## Project Structure
+
+```
+nde-gan-pipeline/
+│
+├── src/
+│   ├── models.py        # Generator + PatchGAN Discriminator
+│   ├── dataset.py       # Dataset loader
+│   ├── physics.py       # Physics-based degradation model
+│   ├── losses.py        # Composite losses
+│   ├── train.py         # Training pipeline
+│   ├── eval.py          # Evaluation (PSNR, SSIM)
+│   ├── inference.py     # Run model on new images
+│   └── utils.py         # Reproducibility utils
+│
+├── configs/
+│   ├── baseline.yaml
+│   └── advanced.yaml
+│
+├── data/
+│   └── train/good/
+│
+├── outputs/
+│   ├── samples/
+│   └── checkpoints/
+│
+├── Dockerfile
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Installation
+
+```bash
+git clone https://github.com/yourusername/nde-gan-pipeline.git
+cd nde-gan-pipeline
+pip install -r requirements.txt
+```
+
+Supports:
+	•	CUDA (NVIDIA GPU)
+	•	Apple Silicon (MPS)
+	•	CPU fallback
+
+## Training
+Put grayscale images inside:
+```
+data/train/good/
+```
+
+Run:
+```
+pythn src/train.py
+```
+
+Samples saved to:
+```
+outputs/samples/
+```
+
+Checkpoints saved to:
+```
+outputs/checkpoints/
+```
+
+## Evaluation
+```
+python src/eval.py
+```
+
+Metrics:
+- PSNR (pixel fidelity)
+- SSIM (structural fidelity)
+
+
+## Inference on New images
+```
+python src/inference.py --input path/to/image.png --checkpoint outputs/checkpoints/G_49.pt
+```
+
+Results (examples)
+Metric        Value
+--------------------
+PSNR          ~28-32 dB
+SSIM          ~0.85-0.92
+
+(varies with dataset and degradation severity.)
+
+
+
