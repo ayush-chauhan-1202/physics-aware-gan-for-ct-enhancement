@@ -8,3 +8,4 @@ loss_weights:
   l1: 10.0
   ssim: 2.0
   freq: 1.0
+  lpips: 1.0
